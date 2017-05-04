@@ -1,11 +1,11 @@
-require "spec_helper"
+require 'spec_helper'
 
-RSpec.describe EasyManagement do
-  it "has a version number" do
-    expect(EasyManagement::VERSION).not_to be nil
-  end
+describe EasyManagement do
 
-  it "does something useful" do
-    expect(false).to eq(true)
-  end
+  before { expect_any_instance_of(Gem::Specification).to receive(:gem_dir).and_return('dir') }
+
+  subject { EasyManagement.management_templates_path }
+
+  it { is_expected.to eq 'dir/lib/easy_management/templates' }
+
 end

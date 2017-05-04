@@ -1,0 +1,13 @@
+require 'easy_management/controllers/base_controller'
+
+<%= namespace_open %>
+
+  <%= controller_class_open %>
+
+    protected
+
+    def manager; <%= helper.manager_class %> end
+
+  <%= class_close %>
+
+<%= namespace_close %>

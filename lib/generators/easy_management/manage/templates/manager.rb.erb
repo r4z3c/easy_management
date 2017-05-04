@@ -1,0 +1,15 @@
+require 'easy_management/managers/base_manager'
+
+<%= namespace_open %>
+
+  <%= manager_class_open %>
+
+    def model_name; :<%= helper.model_class.downcase %> end
+
+    protected
+
+    def model; <%= helper.model_class %> end
+
+  <%= class_close %>
+
+<%= namespace_close %>
