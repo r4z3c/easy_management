@@ -1,4 +1,4 @@
-require 'rails/generators/base'
+require 'rails/generators'
 
 module EasyManagement
   module Generators
@@ -14,7 +14,7 @@ module EasyManagement
       end
 
       def insert_router
-        req = "require 'easy_management/management/routes'"
+        req = "require 'easy_management/routes'"
         draw = 'EasyManagement::Routes.draw'
         rails_draw = 'Rails.application.routes.draw'
 
