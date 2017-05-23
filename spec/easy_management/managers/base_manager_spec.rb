@@ -1,15 +1,15 @@
 require 'spec_helper'
-require 'easy_management/testing/support/models'
+require 'easy_management/testing/support/active_record/models'
 require 'easy_management/managers/base_manager'
-require 'easy_management/testing/support/managers/dummies_manager'
+require 'easy_management/testing/support/active_record/dummies_manager'
 
-EasyManagement::Testing::Support::Models.build_dummy_model
+EasyManagement::Testing::Support::ActiveRecord::Models.build_dummy_model
 
 describe EasyManagement::Managers::BaseManager do
 
-  let(:model) { EasyManagement::Testing::Support::Models::Dummy }
+  let(:model) { EasyManagement::Testing::Support::ActiveRecord::Dummy }
 
-  let(:manager) { EasyManagement::Testing::Support::Managers::DummiesManager.new }
+  let(:manager) { EasyManagement::Testing::Support::ActiveRecord::DummiesManager.new }
 
   let(:base_manager) { EasyManagement::Managers::BaseManager.new }
 
@@ -113,7 +113,7 @@ describe EasyManagement::Managers::BaseManager do
 
         let(:options) { { per_page: 123, page: 1 } }
 
-        it { expect_any_instance_of(EasyManagement::Testing::Support::Models::Dummy::ActiveRecord_Relation).to(receive(:per).with(123).and_return(model)); subject }
+        it { expect_any_instance_of(EasyManagement::Testing::Support::ActiveRecord::Dummy::ActiveRecord_Relation).to(receive(:per).with(123).and_return(model)); subject }
       end
 
       context 'when per_page not given' do

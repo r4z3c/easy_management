@@ -1,10 +1,10 @@
 require 'easy_management/managers/base_manager'
-require 'easy_management/testing/support/models'
+require 'easy_management/testing/support/active_record/models'
 
 module EasyManagement
   module Testing
     module Support
-      module Managers
+      module ActiveRecord
 
         class DummiesManager < EasyManagement::Managers::BaseManager
 
@@ -15,7 +15,7 @@ module EasyManagement
           protected
 
           def model
-            EasyManagement::Testing::Support::Models.build_dummy_model
+            EasyManagement::Testing::Support::ActiveRecord::Models.build_dummy_model
           end
 
         end

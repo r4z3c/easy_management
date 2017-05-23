@@ -1,14 +1,14 @@
 require 'spec_helper'
 require 'easy_management/controllers/base_controller'
-require 'easy_management/testing/support/controllers/dummies_controller'
+require 'easy_management/testing/support/active_record/dummies_controller'
 
-EasyManagement::Testing::Support::Models.build_dummy_model
+EasyManagement::Testing::Support::ActiveRecord::Models.build_dummy_model
 
 describe EasyManagement::Controllers::BaseController, type: :api do
 
-  let(:model) { EasyManagement::Testing::Support::Models::Dummy }
+  let(:model) { EasyManagement::Testing::Support::ActiveRecord::Dummy }
 
-  let(:controller) { EasyManagement::Testing::Support::Controllers::DummiesController.new }
+  let(:controller) { EasyManagement::Testing::Support::ActiveRecord::DummiesController.new }
 
   let(:base_controller) { EasyManagement::Controllers::BaseController.new }
 
