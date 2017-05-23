@@ -5,7 +5,7 @@ require 'simplecov'
 require 'easy_management/testing/support/database_connection'
 
 SimpleCov.start do
-  add_filter { |src| src.filename =~ /spec/ }
+  add_filter %w(spec lib/generators)
 end
 
 require 'easy_management'
