@@ -24,12 +24,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '>=5'
   s.add_dependency 'kaminari'
   s.add_dependency 'jbuilder'
+  s.add_dependency 'model-builder'
 
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'model-builder'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'database_cleaner'
 end
