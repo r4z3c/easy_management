@@ -11,7 +11,7 @@ describe EasyManagement::Helpers::ModelHelper do
 
   describe '#controller' do
 
-    subject { helper.controller }
+    subject { helper.controller_constant }
 
     it { is_expected.to eq EasyManagement::Testing::Support::ActiveRecord::DummiesController }
 
@@ -21,7 +21,7 @@ describe EasyManagement::Helpers::ModelHelper do
 
   describe '#manager' do
 
-    subject { helper.manager }
+    subject { helper.manager_constant }
 
     it { is_expected.to eq EasyManagement::Testing::Support::ActiveRecord::DummiesManager }
 

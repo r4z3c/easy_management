@@ -1,13 +1,23 @@
+require 'easy_management/builders/manager_builder'
+require 'easy_management/builders/controller_builder'
+
 module EasyManagement
   module Helpers
 
     class ModelHelper
 
-      attr_accessor :name, :manager, :controller
+      attr_accessor :name
 
       def initialize(name)
         self.name = name.to_s.singularize.downcase
-        setup
+      end
+
+      def controller_constant
+        "#{namespace}::#{controller_class}".constantize
+      end
+
+      def manager_constant
+        "#{namespace}::#{manager_class}".constantize
       end
 
       def namespace
@@ -57,51 +67,6 @@ module EasyManagement
 
       def app_path
         'app'
-      end
-
-      protected
-
-      def setup
-        @manager ||= create_manager
-        @controller ||= create_controller
-      end
-
-      def create_manager
-        manager_class_str = "#{namespace}::#{self.manager_class}"
-
-        manager_class = create_class manager_class_str, EasyManagement::Managers::BaseManager
-
-        model_class = underscored_name.classify.constantize
-
-        manager_class.send :define_method, :model do
-          model_class
-        end
-
-        model_class_sym = self.model_class.downcase.to_sym
-
-        manager_class.send :define_method, :model_name do
-          model_class_sym
-        end
-
-        manager_class
-      end
-
-      def create_controller
-        controller_class_str = "#{namespace}::#{self.controller_class}"
-
-        controller_class = create_class controller_class_str, EasyManagement::Controllers::BaseController
-
-        manager_class = @manager
-
-        controller_class.send :define_method, :manager do
-          manager_class
-        end
-
-        controller_class
-      end
-
-      def create_class(full_name, superclass)
-        ModelBuilder::ClassBuilder.build full_name, superclass: superclass
       end
 
     end

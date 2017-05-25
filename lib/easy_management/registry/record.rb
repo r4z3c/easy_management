@@ -17,11 +17,11 @@ module EasyManagement
       end
 
       def manager
-        self.helper.manager
+        self.helper.manager_constant
       end
 
       def controller
-        self.helper.controller
+        self.helper.controller_constant
       end
 
     end
