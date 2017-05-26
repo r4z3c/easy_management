@@ -1,0 +1,5 @@
+= EasyManagement
+{<img src="https://travis-ci.org/r4z3c/easy_utils.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/r4z3c/easy_management]
+{<img src="https://codeclimate.com/github/r4z3c/easy_management/badges/gpa.svg" alt="Code Climate" />}[https://codeclimate.com/github/r4z3c/easy_management]
+{<img src="https://codeclimate.com/github/r4z3c/easy_management/badges/coverage.svg" alt="Code Coverage" />}[https://codeclimate.com/github/r4z3c/easy_management/coverage]
+{<img src="https://codeclimate.com/github/r4z3c/easy_management/badges/issue_count.svg" alt="Issue Count" />}[https://codeclimate.com/github/r4z3c/easy_management]
