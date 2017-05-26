@@ -4,35 +4,65 @@ require 'easy_management/testing/support/active_record/dummies_manager'
 require 'easy_management/testing/support/active_record/models'
 
 EasyManagement::Testing::Support::ActiveRecord::Models.build_dummy_model
+EasyManagement::Testing::Support::ActiveRecord::Models.build_sample_model
 
 describe EasyManagement::Dsl do
 
   let(:dsl) { EasyManagement::Dsl }
 
-  let(:record) { EasyManagement::Registry::Repository.singleton.records.first }
-
-  let(:model) { 'easy_management/testing/support/active_record/dummy' }
+  let(:record) { EasyManagement::Registry::Repository.singleton.records.select { |r| r.model.eql? model }.first }
 
   describe '.configure' do
 
-    before do
-      expect(dsl.repository).to receive(:build_classes_for_all_records)
-      dsl.configure {manage 'easy_management/testing/support/active_record/dummy'}
+    context 'simple management' do
+
+      let(:model) { 'easy_management/testing/support/active_record/dummy' }
+
+      before do
+        expect(dsl.repository).to receive(:build_classes_for_all_records)
+        dsl.configure { manage 'easy_management/testing/support/active_record/dummy' }
+      end
+
+      it { expect(record).to be }
+
+      it { expect(record.model).to eq model }
+
+      it { expect(record.options).to eq Hash.new }
+
+      it { expect(record.helper.model).to eq model }
+
+      it { expect(record.manager).to eq EasyManagement::Testing::Support::ActiveRecord::DummiesManager }
+
+      it { expect(record.controller).to eq EasyManagement::Testing::Support::ActiveRecord::DummiesController }
+
+      it { expect(record.controller.new.send :manager).to eq EasyManagement::Testing::Support::ActiveRecord::DummiesManager }
+
     end
 
-    it { expect(record).to be }
+    context 'custom management' do
 
-    it { expect(record.model).to eq model }
+      let(:model) { 'easy_management/testing/support/active_record/sample' }
 
-    it { expect(record.options).to eq Hash.new }
+      let(:options) { { only: :index } }
 
-    it { expect(record.helper.model).to eq model }
+      before { dsl.configure { manage 'easy_management/testing/support/active_record/sample', only: :index } }
 
-    it { expect(record.manager).to eq EasyManagement::Testing::Support::ActiveRecord::DummiesManager }
+      it { expect(record).to be }
 
-    it { expect(record.controller).to eq EasyManagement::Testing::Support::ActiveRecord::DummiesController }
+      it { expect(record.model).to eq model }
 
-    it { expect(record.controller.new.send :manager).to eq EasyManagement::Testing::Support::ActiveRecord::DummiesManager }
+      it { expect(record.options).to eq options }
+
+      it { expect(record.helper.model).to eq model }
+
+      it { expect(record.manager).to eq EasyManagement::Testing::Support::ActiveRecord::SamplesManager }
+
+      it { expect(record.controller).to eq EasyManagement::Testing::Support::ActiveRecord::SamplesController }
+
+      it { expect(record.controller.new.send :manager).to eq EasyManagement::Testing::Support::ActiveRecord::SamplesManager }
+
+
+    end
 
   end
 
