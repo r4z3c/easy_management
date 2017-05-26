@@ -8,7 +8,7 @@ module EasyManagement
       source_root File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
 
       def install
-        Dir.mkdir managers_path unless Dir.exists? managers_path
+        Dir.mkdir managers_path unless Dir.exist? managers_path
         template 'config.rb.erb', "#{managers_path}/config.rb"
         template 'initializer.rb.erb', 'config/initializers/management.rb'
       end

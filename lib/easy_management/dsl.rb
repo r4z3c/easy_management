@@ -15,7 +15,7 @@ module EasyManagement
     class << self
 
       def configure(&block)
-        self.new.instance_eval &block
+        self.new.instance_eval(&block)
       end
 
     end

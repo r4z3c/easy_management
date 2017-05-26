@@ -42,11 +42,11 @@ module EasyManagement
         render_error :bad_request, [e.message], errors
       end
 
-      def rescue_from_record_not_found_error(e)
+      def rescue_from_record_not_found_error(*)
         render_error :not_found, ['not found']
       end
 
-      def rescue_from_unauthorized_error(e)
+      def rescue_from_unauthorized_error(*)
         render_error :forbidden, ['forbidden']
       end
 

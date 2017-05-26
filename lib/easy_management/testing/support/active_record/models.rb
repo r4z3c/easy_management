@@ -9,23 +9,16 @@ module EasyManagement
           class << self
 
             def build_dummy_model
-              definitions = [
-                'EasyManagement::Testing::Support::ActiveRecord::Dummy',
-                attributes: {
-                  name: :string,
-                  created_at: :datetime,
-                },
-                validates: [
-                  [:name, presence: true]
-                ]
-              ]
-
-              @dummy_model ||= ModelBuilder.build *definitions
+              @dummy_model ||= build_common_model 'Dummy'
             end
 
             def build_sample_model
+              @sample_model ||= build_common_model 'Sample'
+            end
+
+            def build_common_model(model_class)
               definitions = [
-                'EasyManagement::Testing::Support::ActiveRecord::Sample',
+                "EasyManagement::Testing::Support::ActiveRecord::#{model_class}",
                 attributes: {
                   name: :string,
                   created_at: :datetime,
@@ -35,7 +28,7 @@ module EasyManagement
                 ]
               ]
 
-              @sample_model ||= ModelBuilder.build *definitions
+              ModelBuilder.build(*definitions)
             end
 
           end

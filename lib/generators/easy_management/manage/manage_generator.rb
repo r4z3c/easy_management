@@ -11,7 +11,7 @@ module EasyManagement
       class_option :file, type: :boolean, required: false, desc: 'Will create `manager` and `controller` files'
 
       def create_manage_config
-        raise "`#{model}` model not found" unless File.exists? helper.model_path
+        raise "`#{model}` model not found" unless File.exist? helper.model_path
 
         manage = "manage '#{helper.name.pluralize}'"
         configure = 'EasyManagement::Dsl.configure'
