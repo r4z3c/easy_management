@@ -9,7 +9,7 @@ describe EasyManagement::Helpers::ModelHelper do
 
   let(:helper) { EasyManagement::Helpers::ModelHelper.new 'easy_management/testing/support/active_record/dummy' }
 
-  describe '#controller' do
+  describe '#controller_constant' do
 
     subject { helper.controller_constant }
 
@@ -19,11 +19,27 @@ describe EasyManagement::Helpers::ModelHelper do
 
   end
 
-  describe '#manager' do
+  describe '#manager_constant' do
 
     subject { helper.manager_constant }
 
     it { is_expected.to eq EasyManagement::Testing::Support::ActiveRecord::DummiesManager }
+
+  end
+
+  describe '#model_constant' do
+
+    subject { helper.model_constant }
+
+    it { is_expected.to eq EasyManagement::Testing::Support::ActiveRecord::Dummy }
+
+  end
+
+  describe '#model_symbol' do
+
+    subject { helper.model_symbol }
+
+    it { is_expected.to eq :dummy }
 
   end
 

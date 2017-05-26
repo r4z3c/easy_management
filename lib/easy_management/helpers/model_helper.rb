@@ -20,6 +20,14 @@ module EasyManagement
         "#{namespace}::#{manager_class}".constantize
       end
 
+      def model_constant
+        "#{namespace}::#{model_class}".constantize
+      end
+
+      def model_symbol
+        model_class.downcase.to_sym
+      end
+
       def namespace
         chain = underscored_model.split('/')[0..-2]
         chain.empty? ? nil : chain.join('/').camelize
