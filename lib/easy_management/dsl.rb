@@ -1,11 +1,25 @@
-require 'easy_management/dsl/configure'
-
 module EasyManagement
-  module Dsl
 
-    def self.configure(&block)
-      EasyManagement::Dsl::Configure.new.instance_eval &block
+  class Dsl
+
+    def manage(target, options={})
+      self.repository.add target, options
+    end
+
+    protected
+
+    def repository
+      @repository ||= EasyManagement::Registry::Repository.singleton
+    end
+
+    class << self
+
+      def configure(&block)
+        self.new.instance_eval &block
+      end
+
     end
 
   end
+
 end
