@@ -83,9 +83,9 @@ describe EasyManagement::Helpers::ModelHelper do
 
   end
 
-  describe '#underscored_name' do
+  describe '#underscored_model' do
 
-    subject { helper.underscored_name }
+    subject { helper.underscored_model }
 
     it { is_expected.to eq 'easy_management/testing/support/active_record/dummy' }
 

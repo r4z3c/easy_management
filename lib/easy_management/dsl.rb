@@ -2,8 +2,8 @@ module EasyManagement
 
   class Dsl
 
-    def manage(target, options={})
-      self.repository.add target, options
+    def manage(model, options={})
+      self.repository.add model, options
     end
 
     protected

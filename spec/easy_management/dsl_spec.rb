@@ -11,7 +11,7 @@ describe EasyManagement::Dsl do
 
   let(:record) { EasyManagement::Registry::Repository.singleton.records.first }
 
-  let(:target) { 'easy_management/testing/support/active_record/dummy' }
+  let(:model) { 'easy_management/testing/support/active_record/dummy' }
 
   describe '.configure' do
 
@@ -19,11 +19,11 @@ describe EasyManagement::Dsl do
 
     it { expect(record).to be }
 
-    it { expect(record.target).to eq target }
+    it { expect(record.model).to eq model }
 
     it { expect(record.options).to eq Hash.new }
 
-    it { expect(record.helper.name).to eq target }
+    it { expect(record.helper.model).to eq model }
 
     it { expect(record.manager).to eq EasyManagement::Testing::Support::ActiveRecord::DummiesManager }
 

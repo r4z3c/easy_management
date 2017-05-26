@@ -6,13 +6,15 @@ EasyManagement::Testing::Support::ActiveRecord::Models.build_sample_model
 
 describe EasyManagement::Builders::ManagerBuilder do
 
-  let(:model_name) { 'easy_management/testing/support/active_record/sample' }
+  let(:model) { 'easy_management/testing/support/active_record/sample' }
 
-  let(:builder) { EasyManagement::Builders::ManagerBuilder.new model_name }
+  let(:record) { EasyManagement::Registry::Record.new model }
+
+  let(:builder) { EasyManagement::Builders::ManagerBuilder.new record }
 
   before { builder.build }
 
-  it { expect(builder.model_name).to eq model_name }
+  it { expect(builder.record).to eq record }
 
   it { expect(builder.klass).to eq EasyManagement::Testing::Support::ActiveRecord::SamplesManager }
 

@@ -11,8 +11,8 @@ module EasyManagement
         self.records = records
       end
 
-      def add(target, options={})
-        self.records.push EasyManagement::Registry::Record.new(target, options)
+      def add(model, options={})
+        self.records.push EasyManagement::Registry::Record.new(model, options)
       end
 
       class << self

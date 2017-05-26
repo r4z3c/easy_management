@@ -16,7 +16,7 @@ module EasyManagement
       end
 
       def setup_class
-        model_class = model_helper.underscored_name.classify.constantize
+        model_class = model_helper.underscored_model.classify.constantize
         model_class_sym = model_helper.model_class.downcase.to_sym
 
         self.klass.send :define_method, :model do

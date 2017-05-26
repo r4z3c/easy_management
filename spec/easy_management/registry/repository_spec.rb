@@ -4,7 +4,7 @@ require 'easy_management/registry/record'
 
 describe EasyManagement::Registry::Repository do
 
-  let(:target) { 'namespace/model' }
+  let(:model) { 'namespace/model' }
 
   let(:options) { Hash.new key: :value }
 
@@ -14,11 +14,11 @@ describe EasyManagement::Registry::Repository do
 
   describe '#add' do
 
-    before { repository.add target, options }
+    before { repository.add model, options }
 
     it { expect(repository.records.count).to eq 1 }
 
-    it { expect(repository.records.first.target).to eq target }
+    it { expect(repository.records.first.model).to eq model }
 
     it { expect(repository.records.first.options).to eq options }
 

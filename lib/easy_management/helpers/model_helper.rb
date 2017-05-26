@@ -6,10 +6,10 @@ module EasyManagement
 
     class ModelHelper
 
-      attr_accessor :name
+      attr_accessor :model
 
-      def initialize(name)
-        self.name = name.to_s.singularize.downcase
+      def initialize(model)
+        self.model = model.to_s.singularize.downcase
       end
 
       def controller_constant
@@ -21,7 +21,7 @@ module EasyManagement
       end
 
       def namespace
-        chain = underscored_name.split('/')[0..-2]
+        chain = underscored_model.split('/')[0..-2]
         chain.empty? ? nil : chain.join('/').camelize
       end
 
@@ -34,23 +34,23 @@ module EasyManagement
       end
 
       def model_class
-        underscored_name.split('/').last.camelize
+        underscored_model.split('/').last.camelize
       end
 
       def controller_path
-        "#{controllers_path}/#{underscored_name.pluralize}_controller.rb"
+        "#{controllers_path}/#{underscored_model.pluralize}_controller.rb"
       end
 
       def manager_path
-        "#{managers_path}/#{underscored_name.pluralize}_manager.rb"
+        "#{managers_path}/#{underscored_model.pluralize}_manager.rb"
       end
 
       def model_path
-        "#{models_path}/#{underscored_name}.rb"
+        "#{models_path}/#{underscored_model}.rb"
       end
 
-      def underscored_name
-        name.underscore
+      def underscored_model
+        model.underscore
       end
 
       def controllers_path

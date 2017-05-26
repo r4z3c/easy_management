@@ -3,7 +3,9 @@ require 'easy_management/builders/class_builder'
 
 describe EasyManagement::Builders::ClassBuilder do
 
-  let(:builder) { EasyManagement::Builders::ClassBuilder.new 'model_name' }
+  let(:record) { EasyManagement::Registry::Record.new 'model_name' }
+
+  let(:builder) { EasyManagement::Builders::ClassBuilder.new record }
 
   describe '#class_full_name' do
 

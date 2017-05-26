@@ -8,12 +8,12 @@ module EasyManagement
 
     class Record
 
-      attr_accessor :target, :options, :helper, :manager, :controller
+      attr_accessor :model, :options, :helper, :manager, :controller
 
-      def initialize(target, options={})
-        self.target = target.to_s
+      def initialize(model, options={})
+        self.model = model.to_s
         self.options = options
-        self.helper = EasyManagement::Helpers::ModelHelper.new self.target
+        self.helper = EasyManagement::Helpers::ModelHelper.new self.model
       end
 
       def manager

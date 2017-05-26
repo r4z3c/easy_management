@@ -4,19 +4,19 @@ require 'easy_management/helpers/model_helper'
 
 describe EasyManagement::Registry::Record do
 
-  let(:target) { 'namespace/model' }
+  let(:model) { 'namespace/model' }
 
   let(:options) { Hash.new key: :value }
 
-  let(:record) { EasyManagement::Registry::Record.new target, options  }
+  let(:record) { EasyManagement::Registry::Record.new model, options  }
 
-  it { expect(record.target).to eq target }
+  it { expect(record.model).to eq model }
 
   it { expect(record.options).to eq options }
 
   it { expect(record.helper).to be_a EasyManagement::Helpers::ModelHelper }
 
-  it { expect(record.helper.name).to eq target }
+  it { expect(record.helper.model).to eq model }
 
   describe '#manager' do
 

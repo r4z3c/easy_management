@@ -5,10 +5,10 @@ module EasyManagement
 
     class ClassBuilder
 
-      attr_accessor :model_name, :klass
+      attr_accessor :record, :klass
 
-      def initialize(model_name)
-        self.model_name = model_name
+      def initialize(record)
+        self.record = record
       end
 
       def build
@@ -36,7 +36,7 @@ module EasyManagement
       end
 
       def model_helper
-        @model_helper ||= EasyManagement::Helpers::ModelHelper.new model_name
+        record.helper
       end
 
     end
