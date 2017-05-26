@@ -18,9 +18,9 @@ module EasyManagement
       def setup_class
         manager_class = model_helper.manager_constant
 
-        self.klass.send :define_method, :manager do
-          manager_class
-        end
+        manager_method = Proc.new { manager_class }
+
+        self.klass.send :define_method, :manager, manager_method
       end
 
     end

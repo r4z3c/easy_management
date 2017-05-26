@@ -19,13 +19,11 @@ module EasyManagement
         model_class = model_helper.model_constant
         model_class_sym = model_helper.model_symbol
 
-        self.klass.send :define_method, :model do
-          model_class
-        end
+        model_method = Proc.new { model_class }
+        model_name_method = Proc.new { model_class_sym }
 
-        self.klass.send :define_method, :model_name do
-          model_class_sym
-        end
+        self.klass.send :define_method, :model, &model_method
+        self.klass.send :define_method, :model_name, &model_name_method
       end
 
     end
