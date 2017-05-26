@@ -15,7 +15,10 @@ describe EasyManagement::Dsl do
 
   describe '.configure' do
 
-    before { dsl.configure { manage 'easy_management/testing/support/active_record/dummy' } }
+    before do
+      expect(dsl.repository).to receive(:build_classes_for_all_records)
+      dsl.configure {manage 'easy_management/testing/support/active_record/dummy'}
+    end
 
     it { expect(record).to be }
 

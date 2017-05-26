@@ -9,13 +9,18 @@ module EasyManagement
     protected
 
     def repository
-      @repository ||= EasyManagement::Registry::Repository.singleton
+      self.class.repository
     end
 
     class << self
 
       def configure(&block)
         self.new.instance_eval(&block)
+        self.repository.build_classes_for_all_records
+      end
+
+      def repository
+        EasyManagement::Registry::Repository.singleton
       end
 
     end

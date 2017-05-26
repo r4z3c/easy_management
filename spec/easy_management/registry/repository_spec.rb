@@ -24,6 +24,22 @@ describe EasyManagement::Registry::Repository do
 
   end
 
+  describe '#build_classes_for_all_records' do
+
+    subject { repository.build_classes_for_all_records }
+
+    before do
+      repository.add model, options
+      repository.records.each do |r|
+        expect(r).to receive(:build_manager_class).ordered
+        expect(r).to receive(:build_controller_class).ordered
+      end
+    end
+
+    it { expect(repository.records.count).to(eq 1); subject }
+
+  end
+
   describe '.singleton' do
 
     subject { EasyManagement::Registry::Repository.singleton }

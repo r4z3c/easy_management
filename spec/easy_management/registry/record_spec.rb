@@ -1,6 +1,8 @@
 require 'spec_helper'
 require 'easy_management/registry/record'
 require 'easy_management/helpers/model_helper'
+require 'easy_management/builders/manager_builder'
+require 'easy_management/builders/controller_builder'
 
 describe EasyManagement::Registry::Record do
 
@@ -35,6 +37,46 @@ describe EasyManagement::Registry::Record do
     subject { record.controller }
 
     it { is_expected.to be_truthy }
+
+  end
+
+  describe '#build_manager_class' do
+
+    subject { record.build_manager_class }
+
+    before { expect(record.manager_builder).to receive(:build).and_return(true) }
+
+    it { is_expected.to be_truthy }
+
+  end
+
+  describe '#manager_builder' do
+
+    subject { record.manager_builder }
+
+    it { is_expected.to be_a EasyManagement::Builders::ManagerBuilder }
+
+    it { expect(subject.record).to be record }
+
+  end
+
+  describe '#build_controller_class' do
+
+    subject { record.build_controller_class }
+
+    before { expect(record.controller_builder).to receive(:build).and_return(true) }
+
+    it { is_expected.to be_truthy }
+
+  end
+
+  describe '#controller_builder' do
+
+    subject { record.controller_builder }
+
+    it { is_expected.to be_a EasyManagement::Builders::ControllerBuilder }
+
+    it { expect(subject.record).to be record }
 
   end
 
