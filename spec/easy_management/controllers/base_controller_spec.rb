@@ -68,9 +68,8 @@ describe EasyManagement::Controllers::BaseController, type: :api do
         let(:handler_args) { [ActiveRecord::RecordInvalid.new(record)] }
 
         let(:render_error_args) { [
-          :bad_request,
-          ["Validation failed: Name can't be blank"],
-          { name: ["can't be blank"] }
+          handler_args[0].record.errors,
+          :unprocessable_entity
         ] }
 
         it { render_error_spec }
@@ -82,8 +81,8 @@ describe EasyManagement::Controllers::BaseController, type: :api do
         let(:handler_args) { [nil] }
 
         let(:render_error_args) { [
-            :not_found,
-            ['not found']
+          nil,
+          :not_found
         ] }
 
         it { render_error_spec }
@@ -95,8 +94,8 @@ describe EasyManagement::Controllers::BaseController, type: :api do
         let(:handler_args) { [EasyManagement::Errors::UnauthorizedError.new] }
 
         let(:render_error_args) { [
-            :forbidden,
-            %w(forbidden)
+          nil,
+          :forbidden
         ] }
 
         it { render_error_spec }
@@ -108,9 +107,11 @@ describe EasyManagement::Controllers::BaseController, type: :api do
         let(:handler_args) { [EasyManagement::Errors::HandledRecordInvalidError.new(:messages, :errors)] }
 
         let(:render_error_args) { [
-            :bad_request,
-            :messages,
-            :errors
+          {
+            messages: handler_args[0].messages,
+            errors: handler_args[0].errors,
+          },
+          :unprocessable_entity
         ] }
 
         it { render_error_spec }
@@ -119,14 +120,10 @@ describe EasyManagement::Controllers::BaseController, type: :api do
       describe '#render_error' do
         let(:error_handler) { :render_error }
 
-        let(:handler_args) { [:status, :messages, :errors] }
+        let(:handler_args) { [:json, :status] }
 
         let(:spec) { {
-          json: {
-            status: :error,
-            messages: :messages,
-            errors: :errors
-          },
+          json: :json,
           status: :status
         } }
 
@@ -154,6 +151,8 @@ describe EasyManagement::Controllers::BaseController, type: :api do
 
       it do
         expect(controller).to receive(:params).and_return(create_params).at_least(:once)
+
+        expect(controller).to receive(:head).with(:created)
 
         expect(manager.find_by name: :name).to_not be
 
@@ -229,7 +228,11 @@ describe EasyManagement::Controllers::BaseController, type: :api do
         })
       end
 
-      before { expect(controller).to receive(:params).and_return(update_params).at_least(1) }
+      before do
+        expect(controller).to receive(:params).and_return(update_params).at_least(1)
+
+        expect(controller).to receive(:head).with(:ok)
+      end
 
       subject { controller.update }
 

@@ -15,11 +15,12 @@ module EasyManagement
       before_action :append_templates_path
 
       def index
-        @list = manager_instance.index permitted_params_on_current_action
+        @list = manager_instance.index permitted_params
       end
 
       def create
-        @item = manager_instance.create! permitted_params_on_current_action
+        @item = manager_instance.create! permitted_params
+        head :created
       end
 
       def show
@@ -27,7 +28,8 @@ module EasyManagement
       end
 
       def update
-        @item = manager_instance.update params[:id], permitted_params_on_current_action
+        @item = manager_instance.update params[:id], permitted_params
+        head :ok
       end
 
       def destroy
@@ -37,32 +39,30 @@ module EasyManagement
       protected
 
       def rescue_from_record_invalid_error(e)
-        errors = {}
-        e.record.errors.messages.each_pair { |attr, ers| errors[attr] = ers }
-        render_error :bad_request, [e.message], errors
+        render_error e.record.errors, :unprocessable_entity
       end
 
       def rescue_from_record_not_found_error(*)
-        render_error :not_found, ['not found']
+        render_error nil, :not_found
       end
 
       def rescue_from_unauthorized_error(*)
-        render_error :forbidden, ['forbidden']
+        render_error nil, :forbidden
       end
 
       def rescue_from_handled_record_invalid_error(e)
-        render_error :bad_request, e.messages, e.errors
+        render_error({ messages: e.messages, errors: e.errors }, :unprocessable_entity)
       end
 
-      def render_error(status, messages, errors={})
-        render json: { status: :error, messages: messages, errors: errors }, status: status
+      def render_error(json, status)
+        render json: json, status: status
       end
 
       def append_templates_path
         self.prepend_view_path EasyManagement.management_templates_path
       end
 
-      def permitted_params_on_current_action
+      def permitted_params
         send "permitted_params_on_#{current_action}"
       end
 
