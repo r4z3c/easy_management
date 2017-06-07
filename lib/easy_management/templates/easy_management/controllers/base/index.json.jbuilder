@@ -1,1 +1,1 @@
-json.set! :list, @list
+json.array! @list, partial: 'item', as: :item
